@@ -1,0 +1,28 @@
+{
+    "register_success": "تم تسجيل المستخدم بنجاح",
+    "register_error": "فشل التسجيل",
+    "validation_error": "فشل التحقق",
+    "unauthorized": "غير مصرح",
+    "invalid_token": "رمز غير صالح",
+    "missing_fields": "يجب ملء جميع الحقول",
+    "email_exists": "البريد الإلكتروني موجود بالفعل",
+    "internal_error": "خطأ في الخادم الداخلي",
+    "validation": {
+        "error": "خطأ في التحقق من الصحة",
+        "email_required": "البريد الإلكتروني مطلوب",
+        "email_invalid": "يرجى إدخال بريد إلكتروني صالح",
+        "password_required": "كلمة المرور مطلوبة",
+        "password_length": "يجب أن تحتوي كلمة المرور على 6 أحرف على الأقل",
+        "firstName_required": "الاسم الأول مطلوب",
+        "lastName_required": "اسم العائلة مطلوب",
+        "role_required": "الدور مطلوب",
+        "email_not_verified":"الحساب غير مفعل",
+        "email_not_verified_or_deleted":"تم إيقاف الحساب او تم حذفة"
+    }, 
+    "auth": {
+        "unauthorized": "غير مصرح",
+        "invalid_token": "رمز مميز غير صالح",
+        "admin_only": "تم الرفض. المسؤولون فقط."
+      }
+}
+  

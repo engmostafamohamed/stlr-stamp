@@ -1,12 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "rootDir": ".",              
+    "outDir": "./dist",          
+    "target": "es6",
     "module": "commonjs",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strict": true
   },
-  "include": ["src"],
+  "include": [
+    "src/**/*",
+    "api/index.ts",
+    "migrate-mongo-config.ts",
+    "prisma/seed.ts"
+  ],
   "exclude": ["node_modules"]
 }

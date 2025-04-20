@@ -1,0 +1,26 @@
+{
+    "register_success": "User registered successfully",
+    "register_error": "Registration failed",
+    "validation_error": "Validation failed",
+    "missing_fields": "All fields are required",
+    "unauthorized": "Unauthorized",
+    "invalid_token": "Invalid token",
+    "email_exists": "Email already exists",
+    "internal_error": "Internal server error",
+    "validation": {
+        "error": "Validation failed",
+        "email_required": "Email is required",
+        "email_invalid": "Please enter a valid email address",
+        "password_required": "Password is required",
+        "password_length": "Password must be at least 6 characters long",
+        "firstName_required": "First name is required",
+        "lastName_required": "Last name is required",
+        "role_required": "Role is required"
+    },
+    "auth": {
+        "unauthorized": "Unauthorized",
+        "invalid_token": "Invalid token",
+        "admin_only": "Access denied. Admins only."
+    }
+}
+  

@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+  url      = env("DATABASE_URL")
+  // output   = "./node_modules/@prisma/client"
+}
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+enum UserStatus {
+  active
+  pending
+  suspended
+}
+
+model Role {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  users       User[]       @relation("UserRoles")
+  permissions Permission[] @relation("RolePermissions")
+}
+
+model Permission {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  roles       Role[]  @relation("RolePermissions")
+  users       User[]  @relation("UserPermissions")
+}
+
+model User {
+  user_id     Int       @id @default(autoincrement())
+  username    String
+  email       String    @unique
+  phone       String
+  password    String
+  verified    Boolean   @default(false)
+  status      UserStatus @default(pending)
+  deletedAt   DateTime?  
+
+  roles            Role[]       @relation("UserRoles")
+  permissions      Permission[] @relation("UserPermissions")
+  providerAccounts ProviderAccount[]
+
+  @@index([deletedAt]) // optional: improves querying non-deleted users
+}
+model PasswordResetOTP {
+  id           Int      @id @default(autoincrement())
+  email        String
+  otp          String
+  verified     Boolean  @default(false)
+  type         String   // 'email_verification' | 'reset_password'
+  expires_at   DateTime
+  created_at   DateTime @default(now())
+}
+model ProviderAccount {
+  id       String   @id @default(cuid())
+  provider String
+  user     User     @relation(fields: [userId], references: [user_id])
+  userId   Int
+}
+
+
