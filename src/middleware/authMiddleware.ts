@@ -4,7 +4,6 @@ import { AuthRequest } from '../interfaces/AuthRequest'
 import { body} from "express-validator";
 
 
-
 export const authenticate: RequestHandler = (req: AuthRequest, res: Response, next: NextFunction): void => {
   const token = req.header('Authorization')?.split(' ')[1];
 

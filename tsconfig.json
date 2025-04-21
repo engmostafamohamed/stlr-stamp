@@ -1,16 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
-    "outDir": "dist",
-    "rootDir": "src",
-    "strict": true,
+    "rootDir": ".",              
+    "outDir": "dist",          
+    "target": "es6",
+    "module": "commonjs",
     "esModuleInterop": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
+    "strict": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src",
+    "prisma/seed.ts",
+  ],
+  "exclude": ["node_modules"]
 }
