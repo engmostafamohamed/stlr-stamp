@@ -11,7 +11,7 @@ import { setupSwagger } from "./config/swagger";
 import passport from "passport";
 import session from "express-session";
 
-import "./config/passport"; // Register strategies globally
+import "./config/passport"; // 👈 Register strategies globally
 dotenv.config();
 
 const app = express();

@@ -8,8 +8,10 @@
     "strict": true
   },
   "include": [
-    "src",
-    "prisma/seed.ts",
+    "src/**/*",
+    "api/index.ts",
+    "migrate-mongo-config.ts",
+    "prisma/seed.ts"
   ],
   "exclude": ["node_modules"]
 }
