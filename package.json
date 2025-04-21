@@ -4,8 +4,8 @@
   "main": "server.ts",
   "scripts": {
     "dev": "nodemon src/server.ts",
-    "build": "npm  i && tsc",
-    "generate": "prisma generate",
+    "build": "npx rimraf dist && tsc",
+    "generate": "npx prisma generate",
     "db:push": "prisma db push",
     "db:reset": "prisma migrate reset",
     "db:reset:fresh": "prisma migrate reset --force && npm run generate",
