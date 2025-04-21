@@ -4,7 +4,7 @@
   "main": "server.ts",
   "scripts": {
     "dev": "nodemon src/server.ts",
-    "build": "tsc --build",
+    "build": "npx rimraf dist && tsc",
     "generate": "prisma generate",
     "db:push": "prisma db push",
     "db:reset": "prisma migrate reset",
@@ -12,7 +12,7 @@
     "migrate": "prisma migrate deploy",
     "migrate:init": "npx prisma migrate dev --name init",
     "migrate:fresh": "npx prisma migrate dev --name init && npm run generate",
-    "start": "node dist/src/server.js",
+    "start": "node dist/server.js",
     "start:vercel": "vercel dev",
     "seed": "prisma db seed",
     "postinstall": "npm run generate",
