@@ -13,7 +13,7 @@
     "migrate:init": "npm prisma migrate dev --name init",
     "migrate:fresh": "prisma migrate dev --name init && npm run generate",
     "start:dev": "npm run build && npm run migrate && node dist/src/server.js",
-    "start": "npm run generate && node dist/src/server.js",
+    "start": "node dist/src/server.js",
     "start:vercel": "vercel dev",
     "seed": "prisma db seed",
     "postinstall": "prisma generate",
