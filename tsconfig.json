@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
-    "rootDir": ".",              
-    "outDir": "./dist",          
-    "target": "es6",
+    "target": "ES6",
     "module": "commonjs",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
     "esModuleInterop": true,
-    "strict": true
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["node", "express"]
   },
-  "include": [
-    "src/**/*",
-    "api/index.ts",
-    "migrate-mongo-config.ts",
-    "prisma/seed.ts"
-  ],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
