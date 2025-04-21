@@ -1,1 +1,1 @@
-web: npm run generate && npm run start
+web: npm install @prisma/client && npm run generate && npm run start

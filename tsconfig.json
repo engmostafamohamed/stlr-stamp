@@ -11,7 +11,7 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "typeRoots": ["./node_modules/@types"],
-    "types": ["node", "express"]
+    "types": ["node", "express"]  // Ensure express is listed here
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
