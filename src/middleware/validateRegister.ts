@@ -18,6 +18,13 @@ export const validateRegister = [
     .isEmail()
     .withMessage((value, { req }) => req.t("validation.email_invalid")),
 
+  body("phoneNumber")
+    .notEmpty()
+    .withMessage((value, { req }) => req.t("validation.phone_required"))
+    .bail()
+    .isEmail()
+    .withMessage((value, { req }) => req.t("validation.phone_required")),
+
   body("password")
     .notEmpty()
     .withMessage((value, { req }) => req.t("validation.password_required"))
@@ -33,24 +40,5 @@ export const validateRegister = [
     .withMessage((value, { req }) => req.t("validation.role_invalid")), // Custom error for invalid role
 ];
 
-export const handleValidationErrors = (req: AuthRequest, res: Response, next: NextFunction): void => {
-  const errors = validationResult(req);
 
-  if (!errors.isEmpty()) {
-    const errorMessages = errors.array().map((err) => ({
-      field: (err as any).path || (err as any).param || "unknown", 
-      message: req.t(err.msg) || err.msg,
-    }));
-
-    res.status(400).json({
-      success: false,
-      statusCode: 400,
-      errors: errorMessages,
-    });
-
-    return; //Ensure function exits after sending response
-  }
-
-  next(); // Proceed to next middleware if no validation errors
-};
 

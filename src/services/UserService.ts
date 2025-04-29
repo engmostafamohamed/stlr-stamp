@@ -12,6 +12,7 @@ export const registerUser = async (
   password: string,
   userName: string,
   phoneNumber: string,
+  role:string,
   t: (key: string) => string
 ): Promise<IApiResponse<IUser | null>> => {
   try{
@@ -26,12 +27,12 @@ export const registerUser = async (
     const hashedPassword = await hashPassword(password);
 
     // find role
-    const role= await prisma.role.findUnique({
+    const roleData= await prisma.role.findUnique({
       where: {
-        name: 'customer'
+        name: role
       }
     })
-    if (!role) {
+    if (!roleData) {
       return errorResponse("Default role not found", 500);
     }
     // Create a new user
@@ -42,7 +43,7 @@ export const registerUser = async (
         password: hashedPassword,
         phone: phoneNumber,
         roles: {
-          connect: { id: role.id }, 
+          connect: { id: roleData.id }, 
         },
       },
     });
@@ -69,8 +70,10 @@ export const registerUser = async (
       id: newUser.user_id.toString(),
       name: newUser.username,
       email: newUser.email,
-      phoneNumber:newUser.phone,
-      role: "customer",
+      phoneNumber: newUser.phone,
+      status:newUser.status,
+      verified:newUser.verified,
+      role: roleData.name,
     }, 201);
   }
   catch(error: any){

@@ -67,6 +67,5 @@ export const handleValidationErrors = (
 
     return;
   }
-
   next();
 };

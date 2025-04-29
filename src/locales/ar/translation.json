@@ -7,6 +7,8 @@
     "missing_fields": "يجب ملء جميع الحقول",
     "email_exists": "البريد الإلكتروني موجود بالفعل",
     "internal_error": "خطأ في الخادم الداخلي",
+    "server_error":"خطا ف الخادم",
+    "data_obtained":"تم احضار البيانات بنجاح",
     "validation": {
         "error": "خطأ في التحقق من الصحة",
         "email_required": "البريد الإلكتروني مطلوب",
@@ -21,8 +23,12 @@
     }, 
     "auth": {
         "unauthorized": "غير مصرح",
-        "invalid_token": "رمز مميز غير صالح",
+        "invalid_token": "رمز دخول غير صحيح",
         "admin_only": "تم الرفض. المسؤولون فقط."
-      }
+    },
+    "adminDashboard":{
+        "ww":"ww",
+        "www":"1"
+    }
 }
   

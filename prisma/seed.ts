@@ -44,6 +44,8 @@ async function main() {
       email: adminEmail,
       phone: '0000000000',
       password: adminPassword,
+      verified: true,
+      status: "active",
       roles: {
         connect: [{ id: adminRole.id }],
       },

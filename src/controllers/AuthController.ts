@@ -8,14 +8,14 @@ import { IApiResponse } from '../interfaces/ApiResponse'
 import { registerUser, loginUser,sendOtp, verifyOtp, requestResetPassword  ,resetPassword,socialLoginService } from '../services/UserService';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
-  const { email, password, user_name ,phoneNumber } = req.body;
+  const { email, password, user_name ,phoneNumber,role } = req.body;
   const t = req.t;
 
-  if (!email || !password || !user_name || !phoneNumber) {
-    res.status(400).json(errorResponse(t("missing_fields"), 400));
-    return;
-  }
-  const response = await registerUser(email, password,user_name,phoneNumber,t);
+  // if (!email || !password || !user_name || !phoneNumber) {
+  //   res.status(400).json(errorResponse(t("missing_fields"), 400));
+  //   return;
+  // }
+  const response = await registerUser(email, password,user_name,phoneNumber,role,t);
   if (!response.success) {
     res.status(response.statusCode).json(errorResponse(t(response.message), response.statusCode));
     return;

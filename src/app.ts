@@ -32,7 +32,7 @@ app.use(express.json())
 
 // Use the middleware for localization
 app.use(i18nMiddleware);
-app.get('/', (req, res) =>{res.send('Hello from Express + Vercel!')});
+app.get('/', (req, res) =>{res.send('Hello from STLR')});
 
 // Routes
 app.use("/api", routes);

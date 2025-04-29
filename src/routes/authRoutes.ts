@@ -1,5 +1,6 @@
 import express from "express";
-import { validateRegister , handleValidationErrors} from "../middleware/validateRegister";
+import { validateRegister} from "../middleware/validateRegister";
+import { handleValidationErrors} from "../middleware/handleValidationErrors";
 import { validateSendOtp, validateVerifyOtp,validateResetPassword ,validateSocialLogin} from "../middleware/authMiddleware";
 import { register, login,sendOtpController,verifyOtpController,resetPasswordController,requestResetPasswordController ,socialLoginController} from "../controllers/AuthController";
 const router = express.Router();
