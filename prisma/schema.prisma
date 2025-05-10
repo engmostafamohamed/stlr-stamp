@@ -39,7 +39,12 @@ model User {
   roles            Role[]       @relation("UserRoles")
   permissions      Permission[] @relation("UserPermissions")
   providerAccounts ProviderAccount[]
+  branch_id   Int?
+  branch      Branch?   @relation(fields: [branch_id], references: [branch_id])
+  merchantProfile   MerchantProfile? // Optional one-to-one
 
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
   @@index([deletedAt]) // optional: improves querying non-deleted users
 }
 model PasswordResetOTP {
@@ -49,13 +54,42 @@ model PasswordResetOTP {
   verified     Boolean  @default(false)
   type         String   // 'email_verification' | 'reset_password'
   expires_at   DateTime
-  created_at   DateTime @default(now())
+  created_at   DateTime           @default(now())
 }
 model ProviderAccount {
   id       String   @id @default(cuid())
   provider String
   user     User     @relation(fields: [userId], references: [user_id])
   userId   Int
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime?         @updatedAt
+}
+
+model Branch{
+  branch_id     Int       @id @default(autoincrement())
+  branch_name   String  
+  branch_phone  String  
+  branch_email  String    @unique
+  lat           String  
+  lng           String  
+  employees     User[]
+  merchantProfile_id   MerchantProfile      @relation(fields: [profileId],references:[id])
+  profileId     Int
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime?         @updatedAt
+  deletedAt         DateTime?
+}
+
+model MerchantProfile{
+  id                Int       @id @default(autoincrement())
+  documents     Json?
+  branches          Branch[]
+  merchant_id       User      @relation(fields: [userId],references:[user_id])
+  userId            Int              @unique
+  profile_image            Json?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime?         @updatedAt
+  deletedAt         DateTime?
 }
 
 

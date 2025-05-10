@@ -18,6 +18,32 @@ export const handleValidationErrors = (req: AuthRequest, res: Response, next: Ne
 
     return; 
   }
+  next();
+};
 
+
+export const handleValidationErrorsForUploads = (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): void => {
+  const errors = validationResult(req);
+  const customErrors = req.validationErrors || [];
+
+  if (!errors.isEmpty() || customErrors.length > 0) {
+    res.status(400).json({
+      errors: [
+        ...errors.array().map(err => ({
+          field: err.type,
+          msg: err.msg
+        })),
+        ...customErrors.map(err => ({
+          field: err.field,
+          msg: err.message
+        })),
+      ]
+    });
+    return;
+  }
   next();
 };

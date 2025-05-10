@@ -21,6 +21,19 @@
         "unauthorized": "Unauthorized",
         "invalid_token": "Invalid token",
         "admin_only": "Access denied. Admins only."
+    },"createMerchantProfileValidation":{
+        "user_id_required": "User ID is required.",
+        "user_id_invalid": "User ID must be an integer.",
+        "user_not_found": "User not found.",
+        "user_already_has_profile": "User already has a merchant profile.",
+        "branch_id_invalid": "Branch ID must be an integer.",
+        "branch_not_found": "Branch not found.",
+        "document_type_required": "Document type is required.",
+        "document_type_invalid": "Document type must be a valid JSON object.",
+        "invalid_image_extension": "One or more image files have invalid extensions.",
+        "invalid_document_extension": "One or more document files are not valid PDF files.",
+        "images_must_be_2": "Exactly 2 image files are required.",
+        "documents_must_be_2": "Exactly 2 document files are required."
     }
 }
   

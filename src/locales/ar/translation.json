@@ -29,6 +29,17 @@
     "adminDashboard":{
         "ww":"ww",
         "www":"1"
+    },"createMerchantProfileValidation":{
+        "user_id_required": "معرّف المستخدم مطلوب.",
+        "user_id_invalid": "يجب أن يكون معرّف المستخدم عددًا صحيحًا.",
+        "user_not_found": "المستخدم غير موجود.",
+        "user_already_has_profile": "لدى المستخدم ملف تاجر بالفعل.",
+        "document_type_required": "نوع المستند مطلوب.",
+        "document_type_invalid": "يجب أن يكون نوع المستند كائن JSON صالح.",
+        "invalid_image_extension": "ملف أو أكثر من الصور يحتوي على امتداد غير صالح.",
+        "invalid_document_extension": "ملف أو أكثر من المستندات ليس ملف PDF صالح.",
+        "images_required": "مطلوب صورة واحدة على الأقل.",
+        "documents_required": "مطلوب مستند واحد على الأقل."
     }
 }
   

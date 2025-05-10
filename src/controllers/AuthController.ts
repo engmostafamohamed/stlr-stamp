@@ -5,7 +5,7 @@ import { IUser } from '../interfaces/User'
 import { IAuthResponse } from '../interfaces/AuthResponse'
 import { AuthRequest } from '../interfaces/AuthRequest'
 import { IApiResponse } from '../interfaces/ApiResponse'
-import { registerUser, loginUser,sendOtp, verifyOtp, requestResetPassword  ,resetPassword,socialLoginService } from '../services/UserService';
+import { registerUser, loginUser,sendOtp, verifyOtp, requestResetPassword  ,resetPassword,socialLoginService } from '../services/AuthService';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   const { email, password, user_name ,phoneNumber,role } = req.body;
