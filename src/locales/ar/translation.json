@@ -40,6 +40,10 @@
         "invalid_document_extension": "ملف أو أكثر من المستندات ليس ملف PDF صالح.",
         "images_required": "مطلوب صورة واحدة على الأقل.",
         "documents_required": "مطلوب مستند واحد على الأقل."
+    },"tierValidation": {
+        "required_stamps": "Required stamps is required.",
+        "required_stamps_must_be_number": "Required stamps must be a number.",
+        "required_stamps_must_be_integer": "Required stamps must be an integer."
     }
 }
   

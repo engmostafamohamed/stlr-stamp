@@ -34,6 +34,10 @@
         "invalid_document_extension": "One or more document files are not valid PDF files.",
         "images_must_be_2": "Exactly 2 image files are required.",
         "documents_must_be_2": "Exactly 2 document files are required."
+    },"tierValidation": {
+        "required_stamps": "Required stamps is required.",
+        "required_stamps_must_be_number": "Required stamps must be a number.",
+        "required_stamps_must_be_integer": "Required stamps must be an integer."
     }
 }
   

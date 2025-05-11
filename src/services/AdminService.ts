@@ -82,7 +82,7 @@ export const createUserService = async (
     // find role
     const roleData= await prisma.role.findUnique({
       where: {
-        name: 'customer'
+        name: role
       }
     })
     if (!roleData) {
@@ -108,56 +108,84 @@ export const createUserService = async (
   }
 };
 
-export const updateUserService = async (id: number, data: any, t: any): Promise<IApiResponse<any>> => {
+export const updateUserService = async (
+  id: number,
+  data: any,
+  t: any
+): Promise<IApiResponse<any>> => {
   try {
-    const normalizedEmail = data.email.toLowerCase();
-
-    // Check if the user exists and is not soft-deleted
     const existingUser = await prisma.user.findUnique({
       where: { user_id: id },
     });
-    
+
     if (!existingUser || existingUser.deletedAt !== null) {
       return errorResponse(t("user_not_found"), 404);
     }
-    
-    // Check if email or phone is already used by another user
-    const existingEmailOrPhone = await prisma.user.findFirst({
-      where: {
-        // deletedAt: null,
-        user_id: { not: id }, // exclude current user during update
-        OR: [
-          { email: normalizedEmail },
-          { phone: data.phone }
-        ],
-      },
-    });
-    
-    if (existingEmailOrPhone) {
-      return errorResponse(t("validation.email_or_phone_taken"), 400);
+
+    const updateData: any = {};
+
+    // Handle email update
+    if (data.email) {
+      const normalizedEmail = data.email.toLowerCase();
+
+      const existingEmail = await prisma.user.findFirst({
+        where: {
+          user_id: { not: id },
+          email: normalizedEmail,
+        },
+      });
+
+      if (existingEmail) {
+        return errorResponse(t("validation.email_or_phone_taken"), 400);
+      }
+
+      updateData.email = normalizedEmail;
     }
 
+    // Handle phone update
+    if (data.phone) {
+      const existingPhone = await prisma.user.findFirst({
+        where: {
+          user_id: { not: id },
+          phone: data.phone,
+        },
+      });
 
-    const updateData: any = { ...data };
+      if (existingPhone) {
+        return errorResponse(t("validation.email_or_phone_taken"), 400);
+      }
 
-    if (updateData.password) {
-      updateData.password = await hashPassword(updateData.password);
+      updateData.phone = data.phone;
     }
 
-    if (updateData.roles) {
-      // Find the role by name first
+    // Update verified if provided
+    if (typeof data.verified !== "undefined") {
+      updateData.verified = data.verified;
+    }
+
+    // Update status if provided
+    if (typeof data.status !== "undefined") {
+      updateData.status = data.status;
+    }
+
+    // Update roles if provided
+    if (data.roles) {
       const roleData = await prisma.role.findUnique({
-        where: { name: updateData.roles },
+        where: { name: data.roles },
       });
 
       if (!roleData) {
         return errorResponse(t("role_not_found"), 400);
       }
 
-      // Now connect using ID
       updateData.roles = {
         set: [{ id: roleData.id }],
       };
+    }
+
+    // Only update if there’s something to change
+    if (Object.keys(updateData).length === 0) {
+      return errorResponse(t("no_fields_to_update"), 400);
     }
 
     await prisma.user.update({
@@ -171,7 +199,9 @@ export const updateUserService = async (id: number, data: any, t: any): Promise<
     return successResponse(t("user_updated"), null, 201);
   } catch (error: any) {
     console.error(error);
-    if (error.code === 'P2025') return errorResponse(t("user_not_found"), 404);
+    if (error.code === "P2025") {
+      return errorResponse(t("user_not_found"), 404);
+    }
     return errorResponse(t("server_error"), 500);
   }
 };

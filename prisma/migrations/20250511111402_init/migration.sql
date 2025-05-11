@@ -91,6 +91,49 @@ CREATE TABLE `MerchantProfile` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `Tier` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `stamp_id` INTEGER NULL,
+    `merchant_id` INTEGER NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `required_stamps` INTEGER NOT NULL,
+    `required_amount` INTEGER NOT NULL,
+    `points_required` INTEGER NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NULL,
+    `deletedAt` DATETIME(3) NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Stamp` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `card_id` VARCHAR(191) NOT NULL,
+    `merchant_id` INTEGER NOT NULL,
+    `customer_id` INTEGER NOT NULL,
+    `tier_id` INTEGER NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `points` INTEGER NOT NULL,
+    `image` VARCHAR(191) NOT NULL,
+    `expiry_date` DATETIME(3) NOT NULL,
+    `timestamps` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `deletedAt` DATETIME(3) NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `UserTier` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `user_id` INTEGER NOT NULL,
+    `tier_id` INTEGER NOT NULL,
+    `timestamps` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `_UserRoles` (
     `A` INTEGER NOT NULL,
     `B` INTEGER NOT NULL,
@@ -128,6 +171,24 @@ ALTER TABLE `Branch` ADD CONSTRAINT `Branch_profileId_fkey` FOREIGN KEY (`profil
 
 -- AddForeignKey
 ALTER TABLE `MerchantProfile` ADD CONSTRAINT `MerchantProfile_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Tier` ADD CONSTRAINT `Tier_merchant_id_fkey` FOREIGN KEY (`merchant_id`) REFERENCES `MerchantProfile`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Stamp` ADD CONSTRAINT `Stamp_tier_id_fkey` FOREIGN KEY (`tier_id`) REFERENCES `Tier`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Stamp` ADD CONSTRAINT `Stamp_merchant_id_fkey` FOREIGN KEY (`merchant_id`) REFERENCES `MerchantProfile`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Stamp` ADD CONSTRAINT `Stamp_customer_id_fkey` FOREIGN KEY (`customer_id`) REFERENCES `User`(`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `UserTier` ADD CONSTRAINT `UserTier_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `User`(`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `UserTier` ADD CONSTRAINT `UserTier_tier_id_fkey` FOREIGN KEY (`tier_id`) REFERENCES `Tier`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `_UserRoles` ADD CONSTRAINT `_UserRoles_A_fkey` FOREIGN KEY (`A`) REFERENCES `Role`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

@@ -46,6 +46,8 @@ model User {
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
   @@index([deletedAt]) // optional: improves querying non-deleted users
+  Stamp Stamp[]
+  UserTier UserTier[]
 }
 model PasswordResetOTP {
   id           Int      @id @default(autoincrement())
@@ -72,6 +74,7 @@ model Branch{
   branch_email  String    @unique
   lat           String  
   lng           String  
+
   employees     User[]
   merchantProfile_id   MerchantProfile      @relation(fields: [profileId],references:[id])
   profileId     Int
@@ -90,6 +93,53 @@ model MerchantProfile{
   createdAt         DateTime         @default(now())
   updatedAt         DateTime?         @updatedAt
   deletedAt         DateTime?
+
+  Tier Tier[]
+
+  Stamp Stamp[]
 }
 
 
+model Tier {
+  id               Int          @id @default(autoincrement())
+  merchant_id      Int          
+  name             String
+  required_stamps  Int
+  required_amount  Int
+  points_required  Int
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime?         @updatedAt
+  deletedAt         DateTime?
+
+  merchant         MerchantProfile @relation(fields: [merchant_id], references: [id])
+  
+  stamps           Stamp[]
+  users            UserTier[] // relation table
+}
+
+model Stamp {
+  id           Int       @id @default(autoincrement())
+  card_id      String
+  merchant_id  Int
+  customer_id  Int
+  tier_id      Int
+  name         String
+  points       Int
+  image        String
+  expiry_date  DateTime
+  timestamps   DateTime   @default(now())
+  deletedAt         DateTime?
+  tier         Tier       @relation(fields: [tier_id], references: [id])
+  merchant     MerchantProfile @relation(fields: [merchant_id], references: [id])
+  customer     User       @relation(fields: [customer_id], references: [user_id])
+}
+
+model UserTier {
+  id        Int       @id @default(autoincrement())
+  user_id   Int
+  tier_id   Int
+  timestamps DateTime @default(now())
+  deletedAt         DateTime?
+  user      User      @relation(fields: [user_id], references: [user_id])
+  tier      Tier      @relation(fields: [tier_id], references: [id])
+}

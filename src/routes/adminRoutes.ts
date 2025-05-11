@@ -2,9 +2,11 @@ import express from "express";
 import { authenticate, isAdmin } from "../middleware/authMiddleware";
 import { getUsersController, getUserController, updateUserController, createUserController, deleteUserController } from "../controllers/AdminController";
 import { getBranchesController, getBranchController, updateBranchController, createBranchController, deleteBranchController } from "../controllers/BranchController";
+import { getTiersController, getTierController, updateTierController, createTierController, deleteTierController } from "../controllers/TierController";
 import { getMerchantProfilesController, getMerchantProfileController, updateMerchantProfileController, createMerchantProfileController, deleteMerchantProfileController } from "../controllers/MerchantProfileController";
 import { handleValidationErrors ,handleValidationErrorsForUploads} from "../middleware/handleValidationErrors";
 import { validateCreatBranch ,validateUpdateBranch} from "../middleware/branchMiddleware";
+import { validateCreatTier ,validateUpdateTier} from "../middleware/tierMiddleware";
 import { validateRegisterForAdmin,validateUpdateForAdmin ,validateUpdateMerchantProfile,validateCreateMerchantProfile ,uploadMerchantProfileFiles,validateUploadedFiles} from "../middleware/adminDashboardValidation";
 const router = express.Router();
 
@@ -24,6 +26,12 @@ router.get("/branch/:id",getBranchController);
 router.put("/update-branch/:id",validateUpdateBranch,handleValidationErrorsForUploads,updateBranchController);
 router.post("/branch/create",validateCreatBranch,handleValidationErrorsForUploads,createBranchController);
 router.delete("/delete-branch/:id",deleteBranchController);
+
+router.get("/tiers",getTiersController);
+router.get("/tier/:id",getTierController);
+router.put("/update-tier/:id",validateUpdateTier,handleValidationErrorsForUploads,updateTierController);
+router.post("/tier/create",validateCreatTier,handleValidationErrorsForUploads,createTierController);
+router.delete("/delete-tier/:id",deleteTierController);
 
 router.get("/merchantProfiles",getMerchantProfilesController);
 router.get("/merchantProfile/:id",getMerchantProfileController);
